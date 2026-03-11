@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary meta -->
+    <title>Tiny Games for Tiny Humans — Free Browser Games for Kids</title>
+    <meta
+      name="description"
+      content="Free browser-based touch games for tiny humans. No ads. No tracking. No accounts. Just fun."
+    />
+    <meta
+      name="keywords"
+      content="kids games, free games for toddlers, browser games, no ads kids, touch games, free toddler games"
+    />
+    <meta name="author" content="Tiny Games for Tiny Humans" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#FFD93D" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tinygames.ravigopal.com/" />
+    <meta property="og:title" content="Tiny Games for Tiny Humans" />
+    <meta
+      property="og:description"
+      content="Free browser-based touch games for tiny humans. No ads. No tracking. No accounts."
+    />
+    <meta
+      property="og:image"
+      content="https://tinygames.ravigopal.com/og-image.png"
+    />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Tiny Games for Tiny Humans" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tiny Games for Tiny Humans" />
+    <meta
+      name="twitter:description"
+      content="Free browser-based touch games for tiny humans. No ads. No tracking. No accounts."
+    />
+    <meta
+      name="twitter:image"
+      content="https://tinygames.ravigopal.com/og-image.png"
+    />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://tinygames.ravigopal.com/" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css" />
+    <!-- JavaScript -->
+    <script src="scripts.js"></script>
+  </head>
+  <body>
+    <!-- Keyboard: jump past nav straight to games -->
+    <a href="#games" class="skip-link">Skip to games</a>
+
+    <!-- Decorative background (hidden from AT) -->
+    <div class="bg-shapes" id="bgShapes" aria-hidden="true"></div>
+
+    <!-- ══ HEADER / HERO ══════════════════════════════════════ -->
+    <header>
+      <section class="hero">
+        <div class="hero-badge" aria-hidden="true">🎮 100% Free Forever</div>
+        <h1 class="hero-title">
+          <span class="word-tiny1">Tiny</span>
+          <span class="word-games">Games</span><br />
+          for <span class="word-tiny2">Tiny</span>
+          <span class="word-humans">Humans</span>
+        </h1>
+        <p class="hero-sub">
+          Free browser-based touch games for tiny humans.<br />
+          No ads. No tracking. No accounts.
+        </p>
+        <div class="emoji-row" aria-hidden="true">
+          <span>🎈</span><span>🌈</span><span>⭐</span><span>🎉</span
+          ><span>🎮</span>
+        </div>
+      </section>
+    </header>
+
+    <!-- ══ TICKER ════════════════════════════════════════════ -->
+    <!-- <div class="ticker-wrap" aria-hidden="true" role="presentation">
+      <div class="ticker-track">
+        <span class="ticker-item">🎈 Balloon Pop</span>
+        <span class="ticker-item">🌈 Rainbow Sort</span>
+        <span class="ticker-item">⭐ Star Catcher</span>
+        <span class="ticker-item">🎵 Music Maker</span>
+        <span class="ticker-item">🔷 Shape Sorter</span>
+        <span class="ticker-item">🎨 Paint Splat</span>
+        <span class="ticker-item">🎈 Balloon Pop</span>
+        <span class="ticker-item">🌈 Rainbow Sort</span>
+        <span class="ticker-item">⭐ Star Catcher</span>
+        <span class="ticker-item">🎵 Music Maker</span>
+        <span class="ticker-item">🔷 Shape Sorter</span>
+        <span class="ticker-item">🎨 Paint Splat</span>
+      </div>
+    </div> -->
+
+    <!-- ══ PILLARS ════════════════════════════════════════════ -->
+    <div class="pillars" role="list" aria-label="Our promises">
+      <div class="pillar" role="listitem">
+        <div
+          class="dot"
+          style="background: var(--color-coral)"
+          aria-hidden="true"
+        ></div>
+        Zero Ads Ever
+      </div>
+      <div class="pillar" role="listitem">
+        <div
+          class="dot"
+          style="background: var(--color-mint)"
+          aria-hidden="true"
+        ></div>
+        No Tracking
+      </div>
+      <div class="pillar" role="listitem">
+        <div
+          class="dot"
+          style="background: var(--color-blue)"
+          aria-hidden="true"
+        ></div>
+        No Accounts Needed
+      </div>
+      <div class="pillar" role="listitem">
+        <div
+          class="dot"
+          style="background: var(--color-purple)"
+          aria-hidden="true"
+        ></div>
+        Works Offline
+      </div>
+      <div class="pillar" role="listitem">
+        <div
+          class="dot"
+          style="background: var(--color-orange)"
+          aria-hidden="true"
+        ></div>
+        Touch Friendly
+      </div>
+      <div class="pillar" role="listitem">
+        <div
+          class="dot"
+          style="background: var(--color-pink)"
+          aria-hidden="true"
+        ></div>
+        Always Free
+      </div>
+    </div>
+
+    <!-- ══ WAVE ══════════════════════════════════════════════ -->
+    <div class="wave" aria-hidden="true">
+      <svg
+        viewBox="0 0 1440 70"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0,0 C240,70 480,0 720,40 C960,80 1200,10 1440,50 L1440,70 L0,70 Z"
+          fill="#FFF0FA"
+        />
+      </svg>
+    </div>
+
+    <!-- ══ MAIN / GAMES ═══════════════════════════════════════ -->
+    <main id="games">
+      <section class="games-section" aria-labelledby="games-heading">
+        <h2 class="section-title" id="games-heading">
+          Pick a <span>Game!</span> 🕹️
+        </h2>
+
+        <div class="game-grid" role="list" aria-label="Available games">
+          <!-- ·· Balloon Pop — LIVE ·· -->
+          <a
+            href="games/balloon-pop.html"
+            class="game-card"
+            role="listitem"
+            aria-label="Balloon Pop — tap floating balloons to pop them. Play now."
+          >
+            <div
+              class="card-thumb"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  var(--card-balloon-from),
+                  var(--card-balloon-to)
+                );
+              "
+            >
+              <span class="thumb-emoji" aria-hidden="true">🎈</span>
+            </div>
+            <div class="card-body">
+              <div
+                class="card-tag"
+                style="
+                  background: var(--card-balloon-tag-bg);
+                  color: var(--card-balloon-tag-fg);
+                "
+              >
+                Tap &amp; Pop
+              </div>
+              <h3 class="card-name">Balloon Pop!</h3>
+              <p class="card-desc">
+                Tap the floating balloons to pop them. Simple, satisfying fun
+                for the littlest fingers.
+              </p>
+              <div class="card-meta">
+                <span class="play-label" aria-hidden="true">Play ▶</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- ·· Rainbow Sort — coming soon ·· -->
+          <div
+            class="game-card card-coming"
+            role="listitem"
+            aria-label="Rainbow Sort — coming soon"
+          >
+            <div class="coming-ribbon" aria-hidden="true">Coming Soon!</div>
+            <div
+              class="card-thumb"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  var(--card-rainbow-from),
+                  var(--card-rainbow-to)
+                );
+              "
+            >
+              <span class="thumb-emoji" aria-hidden="true">🌈</span>
+            </div>
+            <div class="card-body">
+              <div
+                class="card-tag"
+                style="
+                  background: var(--card-rainbow-tag-bg);
+                  color: var(--card-rainbow-tag-fg);
+                "
+              >
+                Color Match
+              </div>
+              <h3 class="card-name">Rainbow Sort</h3>
+              <p class="card-desc">
+                Drag the colourful blobs into the matching buckets. Learn
+                colours while you play!
+              </p>
+              <div class="card-meta">
+                <span class="sr-only">Coming soon</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ·· Star Catcher — coming soon ·· -->
+          <div
+            class="game-card card-coming"
+            role="listitem"
+            aria-label="Star Catcher — coming soon"
+          >
+            <div class="coming-ribbon" aria-hidden="true">Coming Soon!</div>
+            <div
+              class="card-thumb"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  var(--card-star-from),
+                  var(--card-star-to)
+                );
+              "
+            >
+              <span class="thumb-emoji" aria-hidden="true">⭐</span>
+            </div>
+            <div class="card-body">
+              <div
+                class="card-tag"
+                style="
+                  background: var(--card-star-tag-bg);
+                  color: var(--card-star-tag-fg);
+                "
+              >
+                Catch!
+              </div>
+              <h3 class="card-name">Star Catcher</h3>
+              <p class="card-desc">
+                Touch the falling stars before they disappear. How many can you
+                catch?
+              </p>
+              <div class="card-meta">
+                <span class="sr-only">Coming soon</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ·· Music Maker — coming soon ·· -->
+          <div
+            class="game-card card-coming"
+            role="listitem"
+            aria-label="Music Maker — coming soon"
+          >
+            <div class="coming-ribbon" aria-hidden="true">Coming Soon!</div>
+            <div
+              class="card-thumb"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  var(--card-music-from),
+                  var(--card-music-to)
+                );
+              "
+            >
+              <span class="thumb-emoji" aria-hidden="true">🎵</span>
+            </div>
+            <div class="card-body">
+              <div
+                class="card-tag"
+                style="
+                  background: var(--card-music-tag-bg);
+                  color: var(--card-music-tag-fg);
+                "
+              >
+                Music
+              </div>
+              <h3 class="card-name">Music Maker</h3>
+              <p class="card-desc">
+                Tap the big colourful buttons to make funny sounds and build
+                your own little song!
+              </p>
+              <div class="card-meta">
+                <span class="sr-only">Coming soon</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ·· Shape Sorter — coming soon ·· -->
+          <div
+            class="game-card card-coming"
+            role="listitem"
+            aria-label="Shape Sorter — coming soon"
+          >
+            <div class="coming-ribbon" aria-hidden="true">Coming Soon!</div>
+            <div
+              class="card-thumb"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  var(--card-shape-from),
+                  var(--card-shape-to)
+                );
+              "
+            >
+              <span class="thumb-emoji" aria-hidden="true">🔷</span>
+            </div>
+            <div class="card-body">
+              <div
+                class="card-tag"
+                style="
+                  background: var(--card-shape-tag-bg);
+                  color: var(--card-shape-tag-fg);
+                "
+              >
+                Shapes
+              </div>
+              <h3 class="card-name">Shape Sorter</h3>
+              <p class="card-desc">
+                Drag the shapes into the matching holes. Circles, triangles,
+                squares and more!
+              </p>
+              <div class="card-meta">
+                <span class="sr-only">Coming soon</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ·· Paint Splat — coming soon ·· -->
+          <div
+            class="game-card card-coming"
+            role="listitem"
+            aria-label="Paint Splat — coming soon"
+          >
+            <div class="coming-ribbon" aria-hidden="true">Coming Soon!</div>
+            <div
+              class="card-thumb"
+              style="
+                background: linear-gradient(
+                  135deg,
+                  var(--card-paint-from),
+                  var(--card-paint-to)
+                );
+              "
+            >
+              <span class="thumb-emoji" aria-hidden="true">🎨</span>
+            </div>
+            <div class="card-body">
+              <div
+                class="card-tag"
+                style="
+                  background: var(--card-paint-tag-bg);
+                  color: var(--card-paint-tag-fg);
+                "
+              >
+                Create!
+              </div>
+              <h3 class="card-name">Paint Splat</h3>
+              <p class="card-desc">
+                Finger-paint a masterpiece! Splat, swipe, and smear bright
+                colours across the canvas.
+              </p>
+              <div class="card-meta">
+                <span class="sr-only">Coming soon</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ══ WAVE BOTTOM ════════════════════════════════════════ -->
+    <div class="wave wave-bottom" aria-hidden="true">
+      <svg
+        viewBox="0 0 1440 70"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0,50 C360,10 720,80 1080,30 C1260,10 1380,50 1440,40 L1440,70 L0,70 Z"
+          fill="#2D2D2D"
+        />
+      </svg>
+    </div>
+
+    <!-- ══ FOOTER ════════════════════════════════════════════ -->
+    <footer class="footer">
+      <div class="footer-logo" aria-label="Tiny Games for Tiny Humans">
+        <span class="t1">Tiny</span> Games for
+        <span class="t2">Tiny</span> Humans
+      </div>
+      <p class="footer-tagline">
+        Made with 💜 by
+        <a
+          href="https://ravigopal.com"
+          target="_blank"
+          class="footer-link"
+          rel="noopener noreferrer"
+          >Ravigopal</a
+        >
+        </br />
+        for the little ones in your life
+      </p>
+      <ul class="footer-pills" aria-label="Our commitments">
+        <li class="footer-pill">🚫 No Ads</li>
+        <li class="footer-pill">🔒 No Tracking</li>
+        <li class="footer-pill">👤 No Accounts</li>
+        <li class="footer-pill">💸 Always Free</li>
+        <li class="footer-pill">📱 Touch Friendly</li>
+      </ul>
+      <p class="footer-copy">
+        © 2026 Tiny Games for Tiny Humans. All games free forever.
+      </p>
+    </footer>
+  </body>
+</html>
