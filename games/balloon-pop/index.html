@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+
+    <!-- Primary meta -->
+    <title>Balloon Pop! — Tiny Games for Tiny Humans</title>
+    <meta
+      name="description"
+      content="Pop the floating balloons! A fun, touch-friendly browser game for toddlers. No ads, no tracking, no accounts."
+    />
+    <meta name="author" content="Tiny Games for Tiny Humans" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#FFD93D" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://tinygames.ravigopal.com/games/balloon-pop"
+    />
+    <meta
+      property="og:title"
+      content="Balloon Pop! — Tiny Games for Tiny Humans"
+    />
+    <meta
+      property="og:description"
+      content="Pop the floating balloons! A fun, touch-friendly browser game for toddlers."
+    />
+    <meta
+      property="og:image"
+      content="https://tinygames.ravigopal.com/games/balloon-pop/og-image.png"
+    />
+    <meta property="og:site_name" content="Tiny Games for Tiny Humans" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Balloon Pop! — Tiny Games for Tiny Humans"
+    />
+    <meta
+      name="twitter:description"
+      content="Pop the floating balloons! A fun, touch-friendly browser game for toddlers."
+    />
+    <meta
+      name="twitter:image"
+      content="https://tinygames.ravigopal.com/games/balloon-pop/og-image.png"
+    />
+
+    <link
+      rel="canonical"
+      href="https://tinygames.ravigopal.com/games/balloon-pop"
+    />
+    <link rel="stylesheet" href="balloon-pop.css" />
+  </head>
+  <body>
+    <!-- Skip link for keyboard users -->
+    <a href="#game-area" class="skip-link">Skip to game</a>
+
+    <!-- Live region: screen-reader score announcements -->
+    <div
+      id="sr-announce"
+      class="sr-only"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
+    <!-- Speed-level banner -->
+    <div id="level-banner" class="level-banner" aria-hidden="true">
+      <span id="level-text"></span>
+    </div>
+
+    <!-- HUD -->
+    <header class="hud" role="banner" aria-label="Game stats">
+      <a href="/" class="back-btn" aria-label="Back to all games">
+        <span aria-hidden="true">←</span>
+      </a>
+      <div class="hud-score" aria-label="Score">
+        <span class="hud-emoji" aria-hidden="true">🎈</span>
+        <span id="scoreNum" class="hud-num">0</span>
+      </div>
+      <div class="hud-level" aria-label="Speed level">
+        <span class="hud-emoji" aria-hidden="true">⚡</span>
+        <span id="levelNum" class="hud-num">1</span>
+      </div>
+    </header>
+
+    <!-- Game canvas -->
+    <main
+      id="game-area"
+      class="game-area"
+      aria-label="Balloon pop game — tap the balloons!"
+    >
+      <div class="ground" aria-hidden="true"></div>
+    </main>
+
+    <!-- Celebration overlay -->
+    <div id="celebration" class="celebration" aria-hidden="true">
+      <div id="celeb-star" class="celeb-star"></div>
+    </div>
+
+    <!-- Flash overlay -->
+    <div id="flash" class="flash" aria-hidden="true"></div>
+    <script src="balloon-pop.js"></script>
+  </body>
+</html>
