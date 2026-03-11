@@ -27,7 +27,7 @@ The games are designed to be:
 | Game                | Status  | Description                                 |
 | ------------------- | ------- | ------------------------------------------- |
 | 🎈 **Balloon Pop**  | ✅ Live | Tap colourful floating balloons to pop them |
-| 🎨 **Paint Splat**  | 🔜 Soon | Finger-paint with bright colours            |
+| 🎨 **Paint Splat**  | ✅ Live | Finger-paint with bright colours            |
 | 🌈 **Rainbow Sort** | 🔜 Soon | Drag blobs into matching colour buckets     |
 | ⭐ **Star Catcher** | 🔜 Soon | Touch falling stars before they disappear   |
 | 🎵 **Music Maker**  | 🔜 Soon | Tap buttons to build funny sounds and songs |

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <title>Paint Splat! — Tiny Games for Tiny Humans</title>
+    <meta
+      name="description"
+      content="Finger-paint a magical masterpiece! Tap and drag to create rainbow paint splashes. Free touch game for toddlers."
+    />
+    <meta name="author" content="Tiny Games for Tiny Humans" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#FF4081" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://tinygames.ravigopal.com/games/paint-splat/"
+    />
+    <meta
+      property="og:title"
+      content="Paint Splat! — Tiny Games for Tiny Humans"
+    />
+    <meta
+      property="og:description"
+      content="Finger-paint a magical masterpiece! Free toddler touch game."
+    />
+    <meta
+      property="og:image"
+      content="https://tinygames.ravigopal.com/games/paint-splat/og-image.png"
+    />
+    <meta property="og:site_name" content="Tiny Games for Tiny Humans" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Paint Splat! — Tiny Games for Tiny Humans"
+    />
+    <meta
+      name="twitter:description"
+      content="Finger-paint a magical masterpiece! Free toddler touch game."
+    />
+    <meta
+      name="twitter:image"
+      content="https://tinygames.ravigopal.com/games/paint-splat/og-image.png"
+    />
+    <link
+      rel="canonical"
+      href="https://tinygames.ravigopal.com/games/paint-splat/"
+    />
+    <link rel="stylesheet" href="paint-splat.css" />
+  </head>
+  <body>
+    <a href="#canvas-area" class="skip-link">Skip to canvas</a>
+    <div
+      id="sr-announce"
+      class="sr-only"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
+    <!-- ══ TOP BAR ══ -->
+    <header class="top-bar" role="banner" aria-label="Paint controls">
+      <a href="/" class="ui-btn back-btn" aria-label="Back to all games">
+        <span aria-hidden="true">←</span>
+      </a>
+
+      <!-- Colour palette: rainbow-random first, then 7 solid colours -->
+      <nav class="palette" role="group" aria-label="Choose paint colour">
+        <!-- Rainbow = random colour, active by default -->
+        <button
+          class="swatch swatch-rainbow active"
+          data-color="random"
+          aria-label="Random rainbow colour"
+          aria-pressed="true"
+        ></button>
+
+        <button
+          class="swatch"
+          data-color="#FF1744"
+          aria-label="Red"
+          aria-pressed="false"
+          style="--c: #ff1744"
+        ></button>
+        <button
+          class="swatch"
+          data-color="#FF6D00"
+          aria-label="Orange"
+          aria-pressed="false"
+          style="--c: #ff6d00"
+        ></button>
+        <button
+          class="swatch"
+          data-color="#FFD600"
+          aria-label="Yellow"
+          aria-pressed="false"
+          style="--c: #ffd600"
+        ></button>
+        <button
+          class="swatch"
+          data-color="#00E676"
+          aria-label="Green"
+          aria-pressed="false"
+          style="--c: #00e676"
+        ></button>
+        <button
+          class="swatch"
+          data-color="#2979FF"
+          aria-label="Blue"
+          aria-pressed="false"
+          style="--c: #2979ff"
+        ></button>
+        <button
+          class="swatch"
+          data-color="#D500F9"
+          aria-label="Purple"
+          aria-pressed="false"
+          style="--c: #d500f9"
+        ></button>
+        <button
+          class="swatch"
+          data-color="#FF4081"
+          aria-label="Pink"
+          aria-pressed="false"
+          style="--c: #ff4081"
+        ></button>
+      </nav>
+
+      <!-- Paint effect cycler (top-right of bar) -->
+      <button
+        class="ui-btn effect-btn"
+        id="effectBtn"
+        aria-label="Change paint effect"
+      >
+        <span id="effectIcon" aria-hidden="true">🎨</span>
+      </button>
+    </header>
+
+    <!-- ══ CANVAS ══ -->
+    <main
+      id="canvas-area"
+      class="canvas-area"
+      aria-label="Paint canvas — draw with your fingers"
+    >
+      <canvas
+        id="paintCanvas"
+        tabindex="0"
+        aria-label="Painting canvas — use arrow keys to paint"
+      ></canvas>
+    </main>
+
+    <!-- ══ BOTTOM-LEFT: save ══ -->
+    <button
+      class="corner-btn save-btn"
+      id="saveBtn"
+      aria-label="Save my painting"
+    >
+      <span aria-hidden="true">💾</span>
+    </button>
+
+    <!-- ══ BOTTOM-RIGHT: clear ══ -->
+    <button
+      class="corner-btn clear-btn"
+      id="clearBtn"
+      aria-label="Clear the canvas"
+    >
+      <span aria-hidden="true">❌</span>
+    </button>
+
+    <!-- Confetti layer -->
+    <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
+
+    <!-- Clear flash -->
+    <div id="clearFlash" class="clear-flash" aria-hidden="true"></div>
+
+    <script src="paint-splat.js"></script>
+  </body>
+</html>

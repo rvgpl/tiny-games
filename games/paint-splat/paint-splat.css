@@ -1,0 +1,437 @@
+/* ═══════════════════════════════════════════════════════════
+   PAINT SPLAT — paint-splat.css
+   @layer: reset → tokens → base → layout → components → animations → utilities
+   ═══════════════════════════════════════════════════════════ */
+@layer reset, tokens, base, layout, components, animations, utilities;
+
+/* ── TOKENS ──────────────────────────────────────────────── */
+@layer tokens {
+  :root {
+    /* UI chrome — cream floats above white canvas */
+    --ui-bg: #fff8f0;
+    --ui-border: #e0c8a8;
+    --ui-shadow: 0 6px 24px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.1);
+    --ui-shadow-sm: 0 3px 12px rgba(0, 0, 0, 0.16);
+    --ui-radius-pill: 60px;
+    --ui-border-w: 3.5px;
+
+    /* Rainbow palette */
+    --p-red: #ff1744;
+    --p-orange: #ff6d00;
+    --p-yellow: #ffd600;
+    --p-green: #00e676;
+    --p-blue: #2979ff;
+    --p-purple: #d500f9;
+    --p-pink: #ff4081;
+
+    /* Swatch sizing — 60px per spec */
+    --swatch-size: 60px;
+
+    /* Top bar height must fit 80px swatches */
+    --topbar-h: 104px;
+    --topbar-pad: 12px;
+
+    /* Bottom corner buttons */
+    --corner-size: 60px;
+    --corner-gap: 20px;
+
+    /* Easing */
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Z-index */
+    --z-canvas: 1;
+    --z-ui: 20;
+    --z-confetti: 30;
+    --z-flash: 40;
+    --z-skip: 999;
+  }
+}
+
+/* ── RESET ───────────────────────────────────────────────── */
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+  button {
+    font: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+    -webkit-appearance: none;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+/* ── BASE ────────────────────────────────────────────────── */
+@layer base {
+  body {
+    background: #fff;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    font-family: system-ui, sans-serif;
+  }
+  :focus-visible {
+    outline: 4px solid #ffd600;
+    outline-offset: 3px;
+    border-radius: 12px;
+  }
+}
+
+/* ── LAYOUT ──────────────────────────────────────────────── */
+@layer layout {
+  /* Floating cream pill top bar */
+  .top-bar {
+    position: fixed;
+    top: var(--topbar-pad);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--z-ui);
+    height: var(--topbar-h);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: var(--ui-bg);
+    border: var(--ui-border-w) solid var(--ui-border);
+    border-radius: var(--ui-radius-pill);
+    box-shadow: var(--ui-shadow);
+    max-width: calc(100vw - 24px);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+  .top-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Full-screen canvas behind everything */
+  .canvas-area {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-canvas);
+    background: #fff;
+  }
+  #paintCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    cursor: crosshair;
+  }
+
+  /* Corner buttons */
+  .corner-btn {
+    position: fixed;
+    z-index: var(--z-ui);
+    width: var(--corner-size);
+    height: var(--corner-size);
+    border-radius: 50%;
+    background: var(--ui-bg);
+    border: var(--ui-border-w) solid var(--ui-border);
+    box-shadow: var(--ui-shadow);
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      transform 120ms var(--ease-bounce),
+      box-shadow 120ms;
+  }
+  .corner-btn:hover {
+    transform: scale(1.08);
+    box-shadow:
+      var(--ui-shadow),
+      0 0 0 4px rgba(0, 0, 0, 0.06);
+  }
+  .corner-btn:active {
+    transform: scale(0.85);
+    box-shadow: none;
+  }
+
+  .save-btn {
+    bottom: var(--corner-gap);
+    left: var(--corner-gap);
+  }
+  .clear-btn {
+    bottom: var(--corner-gap);
+    right: var(--corner-gap);
+  }
+}
+
+/* ── COMPONENTS ──────────────────────────────────────────── */
+@layer components {
+  /* Skip link */
+  .skip-link {
+    position: fixed;
+    top: -200%;
+    left: 16px;
+    z-index: var(--z-skip);
+    background: #ffd600;
+    color: #111;
+    font-weight: 800;
+    padding: 8px 20px;
+    border-radius: 40px;
+    border: 3px solid #111;
+    box-shadow: var(--ui-shadow-sm);
+    transition: top 100ms;
+  }
+  .skip-link:focus {
+    top: 12px;
+  }
+
+  /* Generic small button (back, effect) */
+  .ui-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    min-height: 64px;
+    border-radius: 50%;
+    background: var(--ui-bg);
+    border: var(--ui-border-w) solid var(--ui-border);
+    box-shadow: var(--ui-shadow-sm);
+    font-size: 1.5rem;
+    color: #555;
+    flex-shrink: 0;
+    transition: transform 120ms var(--ease-bounce);
+  }
+  .ui-btn:hover {
+    transform: scale(1.1);
+  }
+  .ui-btn:active {
+    transform: scale(0.85);
+  }
+
+  /* Effect button wiggles every few seconds */
+  .effect-btn {
+    animation: wiggle 4.5s ease-in-out 3s infinite;
+  }
+  .effect-btn:active {
+    animation: none;
+    transform: scale(0.85);
+  }
+
+  /* ── Palette ── */
+  .palette {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  /* Solid colour swatch — 80px */
+  .swatch {
+    width: var(--swatch-size);
+    height: var(--swatch-size);
+    border-radius: 50%;
+    background: var(--c, #ccc);
+    border: 4px solid rgba(255, 255, 255, 0.5);
+    flex-shrink: 0;
+    box-shadow:
+      0 4px 14px rgba(0, 0, 0, 0.22),
+      inset 0 2px 5px rgba(255, 255, 255, 0.3);
+    transition:
+      transform 120ms var(--ease-bounce),
+      border 120ms,
+      box-shadow 120ms;
+    position: relative;
+    overflow: hidden;
+  }
+  .swatch:hover {
+    transform: scale(1.1);
+  }
+  .swatch:active {
+    transform: scale(0.85);
+  }
+
+  /* Active state — thick white border, colour glow ring, pulse */
+  .swatch.active {
+    border: 5px solid #ffffff;
+    box-shadow:
+      0 0 0 4px var(--c, #fff),
+      0 6px 20px rgba(0, 0, 0, 0.28),
+      inset 0 2px 5px rgba(255, 255, 255, 0.35);
+    transform: scale(1.14);
+    animation: swatchPulse 1.8s ease-in-out infinite;
+  }
+
+  /* ── Rainbow swatch ── */
+  .swatch-rainbow {
+    background: conic-gradient(
+      #ff1744 0deg,
+      #ff6d00 52deg,
+      #ffd600 103deg,
+      #00e676 154deg,
+      #2979ff 206deg,
+      #d500f9 257deg,
+      #ff4081 308deg,
+      #ff1744 360deg
+    );
+    /* Override the generic --c glow with white for rainbow active */
+    --c: #ffffff;
+  }
+
+  /* Active rainbow gets its own rainbow glow */
+  .swatch-rainbow.active {
+    box-shadow:
+      0 0 0 4px rgba(255, 200, 0, 0.7),
+      0 6px 20px rgba(0, 0, 0, 0.28);
+    animation:
+      swatchPulse 1.8s ease-in-out infinite,
+      rainbowHue 3s linear infinite;
+  }
+
+  /* ── Confetti layer ── */
+  .confetti-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: var(--z-confetti);
+    overflow: hidden;
+  }
+  .confetti-piece {
+    position: absolute;
+    top: -32px;
+    opacity: 0;
+    animation: confettiFall var(--dur, 3s) var(--delay, 0s) ease-in forwards;
+  }
+  .confetti-piece.square {
+    border-radius: 4px;
+  }
+  .confetti-piece.circle {
+    border-radius: 50%;
+  }
+  .confetti-piece.diamond {
+    border-radius: 3px;
+    transform-origin: center;
+  }
+  .confetti-piece.triangle {
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid var(--pc);
+  }
+
+  /* ── Clear flash ── */
+  .clear-flash {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-flash);
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .clear-flash.active {
+    animation: clearFlash 0.5s var(--ease-out) forwards;
+  }
+}
+
+/* ── ANIMATIONS ──────────────────────────────────────────── */
+@layer animations {
+  @keyframes swatchPulse {
+    0%,
+    100% {
+      transform: scale(1.14);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes rainbowHue {
+    from {
+      filter: hue-rotate(0deg);
+    }
+    to {
+      filter: hue-rotate(360deg);
+    }
+  }
+
+  @keyframes wiggle {
+    0%,
+    80%,
+    100% {
+      transform: rotate(0deg);
+    }
+    83% {
+      transform: rotate(-16deg);
+    }
+    87% {
+      transform: rotate(16deg);
+    }
+    91% {
+      transform: rotate(-10deg);
+    }
+    95% {
+      transform: rotate(8deg);
+    }
+  }
+
+  @keyframes confettiFall {
+    0% {
+      opacity: 1;
+      transform: translateY(0) rotate(0deg) scale(1);
+    }
+    75% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(calc(100vh + 60px)) rotate(var(--spin, 540deg))
+        scale(0.5);
+    }
+  }
+
+  @keyframes clearFlash {
+    0% {
+      opacity: 0.9;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ── UTILITIES ───────────────────────────────────────────── */
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
