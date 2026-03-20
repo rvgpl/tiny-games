@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Rainbow Sort! — Tiny Games for Tiny Humans</title>
+  <meta name="description" content="Drag the colourful blobs into the matching buckets. Learn colours while you play!" />
+  <meta name="author"      content="Tiny Games for Tiny Humans" />
+  <meta name="robots"      content="index, follow" />
+  <meta name="theme-color" content="#FFD600" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://tiny-games.ravigopal.com/games/rainbow-sort/" />
+  <meta property="og:title"       content="Rainbow Sort! — Tiny Games for Tiny Humans" />
+  <meta property="og:description" content="Drag the colourful blobs into the matching buckets. Learn colours while you play!" />
+  <meta property="og:image"       content="https://tiny-games.ravigopal.com/games/rainbow-sort/og-image.png" />
+  <meta property="og:site_name"   content="Tiny Games for Tiny Humans" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Rainbow Sort! — Tiny Games for Tiny Humans" />
+  <meta name="twitter:description" content="Drag the colourful blobs into matching buckets!" />
+  <meta name="twitter:image"       content="https://tiny-games.ravigopal.com/games/rainbow-sort/og-image.png" />
+  <link rel="canonical" href="https://tiny-games.ravigopal.com/games/rainbow-sort/" />
+  <link rel="stylesheet" href="rainbow-sort.css" />
+</head>
+<body>
+
+  <a href="#game-area" class="skip-link">Skip to game</a>
+  <div id="sr-announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ══ HUD ══ -->
+  <header class="hud" role="banner" aria-label="Rainbow Sort">
+    <a href="/" class="hud-btn back-btn" aria-label="Back to all games">
+      <span aria-hidden="true">←</span>
+    </a>
+
+    <!-- Round pips -->
+    <div class="round-pips" id="roundPips" aria-label="Round progress" role="img"></div>
+
+    <!-- Score star counter -->
+    <div class="score-chip" aria-label="Stars collected">
+      <span aria-hidden="true">⭐</span>
+      <span id="scoreNum" class="score-num">0</span>
+    </div>
+  </header>
+
+  <!-- ══ GAME AREA ══ -->
+  <main id="game-area" class="game-area" aria-label="Sorting game — drag blobs to matching buckets">
+
+    <!-- Blobs injected by JS -->
+    <div id="blobLayer"   class="blob-layer"   aria-label="Blobs to sort"></div>
+
+    <!-- Buckets injected by JS -->
+    <div id="bucketLayer" class="bucket-layer" aria-label="Colour buckets" role="list"></div>
+
+  </main>
+
+  <!-- ══ OVERLAYS ══ -->
+  <!-- Round complete -->
+  <div id="roundOverlay" class="overlay round-overlay" aria-hidden="true">
+    <div class="overlay-inner">
+      <div id="roundEmoji"  class="overlay-emoji"></div>
+      <div id="roundStars"  class="overlay-stars" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- All rounds complete -->
+  <div id="winOverlay" class="overlay win-overlay" aria-hidden="true">
+    <div class="overlay-inner">
+      <div class="win-emoji">🏆</div>
+      <div class="win-stars" aria-hidden="true">⭐⭐⭐</div>
+    </div>
+  </div>
+
+  <!-- Confetti layer -->
+  <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
+
+  <script src="rainbow-sort.js"></script>
+</body>
+</html>
