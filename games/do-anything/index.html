@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Do Anything! — Tiny Games for Tiny Humans</title>
+  <meta name="description" content="Tap, type, smash — every key and touch does something magical! A sensory playground for toddlers." />
+  <meta name="author" content="Tiny Games for Tiny Humans" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#FF4081" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://tiny-games.ravigopal.com/games/do-anything" />
+  <meta property="og:title"       content="Do Anything! — Tiny Games for Tiny Humans" />
+  <meta property="og:description" content="Tap, type, smash — every touch does something magical!" />
+  <meta property="og:image"       content="https://tiny-games.ravigopal.com/games/og-image.png" />
+  <meta property="og:site_name"   content="Tiny Games for Tiny Humans" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Do Anything! — Tiny Games for Tiny Humans" />
+  <meta name="twitter:description" content="Tap, type, smash — every touch does something magical!" />
+  <meta name="twitter:image"       content="https://tiny-games.ravigopal.com/games/og-image.png" />
+  <link rel="canonical" href="https://tinygames.ravigopal.com/games/do-anything" />
+  <link rel="stylesheet" href="do-anything.css" />
+</head>
+<body>
+
+  <a href="#playground" class="skip-link">Skip to playground</a>
+  <div id="sr-announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Back button — only UI chrome -->
+  <a href="/" class="back-btn" aria-label="Back to all games">
+    <span aria-hidden="true">←</span>
+  </a>
+
+  <!-- Fullscreen toggle — top right -->
+  <button class="fullscreen-btn" id="fullscreenBtn" aria-label="Enter fullscreen">
+    <span id="fullscreenIcon" aria-hidden="true">⛶</span>
+  </button>
+
+  <!-- ESC hint toast — shows after first ESC press -->
+  <div id="escToast" class="esc-toast" aria-hidden="true">
+    <span id="escDots" class="esc-dots">●○○</span>
+  </div>
+
+  <!-- The entire screen is the playground -->
+  <main id="playground"
+        class="playground"
+        aria-label="Sensory playground — tap anywhere, press any key"
+        tabindex="0">
+
+    <!-- Idle invite animation — shown when nothing happens for a few seconds -->
+    <div id="idleHint" class="idle-hint" aria-hidden="true">
+      <span class="idle-hand">👋</span>
+    </div>
+
+    <!-- Particle + letter layer — JS injects here -->
+    <div id="particleLayer" class="particle-layer" aria-hidden="true"></div>
+
+  </main>
+
+  <script src="do-anything.js"></script>
+</body>
+</html>
