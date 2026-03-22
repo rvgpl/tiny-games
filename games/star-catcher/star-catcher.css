@@ -1,0 +1,546 @@
+/* ═══════════════════════════════════════════════════════════
+   STAR CATCHER — star-catcher.css
+   @layer: reset → tokens → base → layout → components → animations → utilities
+   ═══════════════════════════════════════════════════════════ */
+@layer reset, tokens, base, layout, components, animations, utilities;
+
+/* ── TOKENS ──────────────────────────────────────────────── */
+@layer tokens {
+  :root {
+    /* Night sky */
+    --sky-top:    #060318;
+    --sky-mid:    #0d0628;
+    --sky-bottom: #1a0a3e;
+
+    /* Everything is golden */
+    --gold-bright: #FFE566;
+    --gold-main:   #FFD600;
+    --gold-warm:   #FFA000;
+    --gold-glow-1: rgba(255,214,0,0.85);
+    --gold-glow-2: rgba(255,214,0,0.35);
+    --gold-glow-3: rgba(255,160,0,0.20);
+
+    /* Basket */
+    --basket-gold:    #FFB300;
+    --basket-dark:    #E65100;
+    --basket-rim:     #FFD740;
+    --basket-bg:      rgba(255,180,0,0.12);
+    --basket-border:  rgba(255,200,50,0.40);
+    --basket-size:    72px;
+    --basket-jingle:  basketJingle 0.4s cubic-bezier(0.34,1.56,0.64,1);
+
+    /* HUD */
+    --hud-bg:     rgba(6, 3, 24, 0.88);
+    --hud-border: rgba(255,200,50,0.12);
+    --hud-h:      76px;
+    --ui-bg:      rgba(255,255,255,0.06);
+    --ui-border:  rgba(255,255,255,0.12);
+
+    /* Easing */
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Z-index */
+    --z-bg:       0;
+    --z-stars:    4;
+    --z-hud:     10;
+    --z-banner:  14;
+    --z-overlay: 20;
+    --z-arc:     30;   /* arc stars fly above everything */
+    --z-skip:   999;
+  }
+}
+
+/* ── RESET ───────────────────────────────────────────────── */
+@layer reset {
+  *, *::before, *::after {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+  html, body { width: 100%; height: 100%; overflow: hidden; -webkit-text-size-adjust: 100%; }
+  button { font: inherit; cursor: pointer; border: none; background: none; -webkit-appearance: none; }
+  a { color: inherit; text-decoration: none; }
+}
+
+/* ── BASE ────────────────────────────────────────────────── */
+@layer base {
+  body {
+    font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+    background: linear-gradient(180deg,
+      var(--sky-top)    0%,
+      var(--sky-mid)   55%,
+      var(--sky-bottom)100%);
+    color: #fff;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    overflow: hidden;
+  }
+  :focus-visible {
+    outline: 3px solid var(--gold-main);
+    outline-offset: 4px;
+    border-radius: 12px;
+  }
+}
+
+/* ── LAYOUT ──────────────────────────────────────────────── */
+@layer layout {
+
+  .hud {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--hud-h);
+    z-index: var(--z-hud);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 14px;
+    background: var(--hud-bg);
+    border-bottom: 1px solid var(--hud-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .sky {
+    position: fixed;
+    top: var(--hud-h); left: 0; right: 0; bottom: 0;
+    z-index: var(--z-bg);
+    overflow: hidden;
+  }
+
+  .bg-stars { position: absolute; inset: 0; pointer-events: none; }
+  .star-layer { position: absolute; inset: 0; z-index: var(--z-stars); }
+
+  /* Arc layer — fixed, above everything, for flying star animations */
+  .arc-layer {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: var(--z-arc);
+    overflow: visible;
+  }
+}
+
+/* ── COMPONENTS ──────────────────────────────────────────── */
+@layer components {
+
+  /* Skip link */
+  .skip-link {
+    position: fixed; top: -200%; left: 16px; z-index: var(--z-skip);
+    background: var(--gold-main); color: #111; font-weight: 800;
+    padding: 8px 20px; border-radius: 40px; border: 3px solid #111;
+    transition: top 100ms;
+  }
+  .skip-link:focus { top: 12px; }
+
+  /* ── HUD buttons & pills */
+  .hud-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--ui-bg);
+    border: 2px solid var(--ui-border);
+    font-size: 1.3rem; flex-shrink: 0;
+    transition: transform 120ms var(--ease-bounce);
+  }
+  .hud-btn:hover  { transform: scale(1.12); }
+  .hud-btn:active { transform: scale(0.88); }
+
+  .hud-pill {
+    display: flex; align-items: center; gap: 6px;
+    background: var(--ui-bg);
+    border: 2px solid var(--ui-border);
+    border-radius: 40px;
+    padding: 6px 14px;
+    flex-shrink: 0;
+  }
+
+  .level-num {
+    font-size: 1.4rem; font-weight: 900;
+    color: var(--gold-bright);
+    min-width: 20px; text-align: center;
+  }
+
+  /* ── BASKET ── */
+  .basket-wrap {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .basket {
+    position: relative;
+    width:  var(--basket-size);
+    height: var(--basket-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+  }
+
+  /* Ambient glow behind basket */
+  .basket-glow {
+    position: absolute;
+    inset: -16px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,214,0,0.25) 0%, transparent 70%);
+    pointer-events: none;
+    animation: basketGlowPulse 2.4s ease-in-out infinite;
+  }
+
+  /* Main body — golden bucket shape */
+  .basket-body {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width:  56px;
+    height: 46px;
+    background: linear-gradient(160deg, var(--basket-gold) 0%, var(--basket-dark) 100%);
+    /* Trapezoid: wider top, narrower bottom */
+    clip-path: polygon(6% 0%, 94% 0%, 82% 100%, 18% 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      inset 0 8px 14px rgba(255,255,255,0.18),
+      inset 0 -4px 10px rgba(0,0,0,0.30);
+  }
+
+  .basket-count {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+    position: relative;
+    z-index: 1;
+    /* pushed up slightly so it sits in the middle of the bucket body */
+    margin-top: 8px;
+  }
+
+  /* Top rim */
+  .basket-rim {
+    position: absolute;
+    bottom: 44px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 12px;
+    background: var(--basket-rim);
+    border-radius: 6px;
+    box-shadow:
+      0 3px 8px rgba(0,0,0,0.30),
+      inset 0 2px 4px rgba(255,255,255,0.25);
+  }
+
+  /* Jingle when a star lands */
+  .basket.jingle { animation: var(--basket-jingle); }
+
+  /* ── Hearts */
+  .hearts-wrap {
+    display: flex; gap: 5px; align-items: center; flex-shrink: 0;
+  }
+  .heart {
+    font-size: 26px;
+    display: block;
+    transition: transform 200ms var(--ease-bounce), opacity 200ms;
+  }
+  .heart.lost {
+    opacity: 0.15;
+    transform: scale(0.72);
+    filter: grayscale(1);
+  }
+
+  /* ── Background static stars */
+  .bg-star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    opacity: var(--op, 0.4);
+    animation: twinkle var(--tw-dur, 3s) var(--tw-del, 0s) ease-in-out infinite alternate;
+  }
+
+  /* ── FALLING STAR WRAPPER (carries pointer events + fall anim) */
+  .star-wrap {
+    position: absolute;
+    /* generous hit target — larger than the visual star */
+    width:  calc(var(--sz, 80px) * 1.4);
+    height: calc(var(--sz, 80px) * 1.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    touch-action: none;
+    animation: starFall var(--dur, 4.5s) linear forwards;
+    will-change: transform;
+    z-index: var(--z-stars);
+    /* Glow lives on the wrapper — drop-shadow respects SVG shape */
+    filter:
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.18) rgba(255,230,50,1))
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.45) rgba(255,214,0,0.65))
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.90) rgba(255,160,0,0.25));
+    animation: starFall var(--dur, 4.5s) linear forwards,
+               glowPulse 1.1s ease-in-out infinite alternate;
+  }
+
+  /* ── THE STAR SVG — injected inline by JS
+     A proper 5-pointed star path with rounded tips via SVG stroke-linecap.
+     The SVG itself is 100×100 viewBox, scaled by JS to --sz.
+  */
+  .star-svg {
+    width:  var(--sz, 80px);
+    height: var(--sz, 80px);
+    flex-shrink: 0;
+    overflow: visible;
+    animation: starRotate var(--spin-dur, 7s) linear infinite;
+    transform-origin: center;
+  }
+
+  /* Normal star fill */
+  .star-svg .star-fill {
+    fill: url(#starGrad);
+  }
+
+  /* Bonus star — brighter fill, faster spin */
+  .star-wrap.bonus {
+    filter:
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.28) rgba(255,240,80,1))
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.65) rgba(255,214,0,0.85))
+      drop-shadow(0 0 calc(var(--sz, 80px) * 1.30) rgba(255,160,0,0.45));
+    animation: starFall var(--dur, 4.5s) linear forwards,
+               glowPulseFast 0.55s ease-in-out infinite alternate;
+  }
+  .star-wrap.bonus .star-svg {
+    animation: starRotate var(--spin-dur, 2s) linear infinite;
+  }
+  .star-wrap.bonus .star-fill {
+    fill: url(#starGradBonus);
+  }
+
+  /* Caught — wrapper pops then vanishes */
+  .star-wrap.caught {
+    animation: starCatch 0.28s var(--ease-bounce) forwards !important;
+    pointer-events: none;
+  }
+
+  /* Missed — fades quickly */
+  .star-wrap.missed {
+    animation: starMiss 0.35s ease-in forwards !important;
+    pointer-events: none;
+  }
+
+  /* ── ARC STAR — ghost SVG that flies into the basket */
+  .arc-star {
+    position: fixed;
+    pointer-events: none;
+    filter:
+      drop-shadow(0 0 10px rgba(255,230,50,1))
+      drop-shadow(0 0 24px rgba(255,214,0,0.7));
+  }
+  .arc-star svg {
+    overflow: visible;
+  }
+
+  /* ── Spark particle */
+  .spark {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparkFly var(--sp-dur, 0.55s) var(--sp-del, 0s) ease-out forwards;
+  }
+
+  /* ── Level banner */
+  .level-banner {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(0.4);
+    z-index: var(--z-banner);
+    pointer-events: none;
+    opacity: 0;
+    white-space: nowrap;
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 900;
+    color: var(--gold-bright);
+    text-shadow:
+      0 0 24px rgba(255,230,50,0.9),
+      0 0 60px rgba(255,214,0,0.5),
+      3px 3px 0 rgba(0,0,0,0.4);
+    letter-spacing: 2px;
+  }
+  .level-banner.show {
+    animation: bannerPop 1.9s var(--ease-bounce) forwards;
+  }
+
+  /* ── Game over overlay */
+  .overlay {
+    position: fixed; inset: 0;
+    z-index: var(--z-overlay);
+    background: rgba(6, 3, 24, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 350ms ease;
+  }
+  .overlay.show { opacity: 1; pointer-events: auto; }
+
+  .overlay-card {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 22px;
+    padding: 44px 52px;
+    background: rgba(255,214,0,0.05);
+    border: 2px solid rgba(255,214,0,0.18);
+    border-radius: 32px;
+    box-shadow: 0 0 80px rgba(255,214,0,0.12), 0 16px 60px rgba(0,0,0,0.6);
+    animation: cardIn 0.5s var(--ease-bounce) 0.15s both;
+  }
+
+  .overlay-emoji {
+    font-size: clamp(4rem, 14vw, 7rem);
+    filter: drop-shadow(0 0 30px rgba(255,214,0,0.6));
+  }
+
+  .overlay-tally {
+    font-size: clamp(2rem, 7vw, 3.2rem);
+    font-weight: 900;
+    color: var(--gold-bright);
+    text-shadow: 0 0 24px rgba(255,214,0,0.6);
+    min-height: 1.2em;
+    text-align: center;
+  }
+
+  .play-again-btn {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-bright), var(--gold-warm));
+    border: 4px solid rgba(255,255,255,0.25);
+    font-size: 2.2rem; color: #fff;
+    box-shadow: 0 6px 28px rgba(255,160,0,0.55),
+                0 0 0 0 rgba(255,214,0,0);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 150ms var(--ease-bounce), box-shadow 150ms;
+    animation: playBtnPulse 1.8s ease-in-out 0.5s infinite;
+  }
+  .play-again-btn:hover  { transform: scale(1.14); }
+  .play-again-btn:active { transform: scale(0.88); }
+}
+
+/* ── ANIMATIONS ──────────────────────────────────────────── */
+@layer animations {
+
+  @keyframes twinkle {
+    from { opacity: var(--op, 0.4); transform: scale(1);   }
+    to   { opacity: calc(var(--op, 0.4) * 0.2); transform: scale(0.5); }
+  }
+
+  /* Star falls straight down */
+  @keyframes starFall {
+    from { transform: translateY(0); }
+    to   { transform: translateY(calc(100vh + 160px)); }
+  }
+
+  /* Glow breathes on wrapper (respects SVG star shape) */
+  @keyframes glowPulse {
+    from { filter:
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.15) rgba(255,230,50,0.9))
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.40) rgba(255,214,0,0.55))
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.80) rgba(255,160,0,0.20)); }
+    to   { filter:
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.25) rgba(255,240,80,1))
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.60) rgba(255,214,0,0.80))
+      drop-shadow(0 0 calc(var(--sz, 80px) * 1.10) rgba(255,160,0,0.35)); }
+  }
+
+  @keyframes glowPulseFast {
+    from { filter:
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.28) rgba(255,240,80,1))
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.60) rgba(255,214,0,0.80))
+      drop-shadow(0 0 calc(var(--sz, 80px) * 1.20) rgba(255,160,0,0.40)); }
+    to   { filter:
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.40) rgba(255,255,120,1))
+      drop-shadow(0 0 calc(var(--sz, 80px) * 0.80) rgba(255,220,0,0.95))
+      drop-shadow(0 0 calc(var(--sz, 80px) * 1.60) rgba(255,180,0,0.55)); }
+  }
+
+  /* Slow rotation */
+  @keyframes starRotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* Caught — flash big before flying to basket */
+  @keyframes starCatch {
+    0%   { transform: scale(1);   opacity: 1; }
+    55%  { transform: scale(1.7); opacity: 1; }
+    100% { transform: scale(0.1); opacity: 0; }
+  }
+
+  /* Missed — shrink and fade */
+  @keyframes starMiss {
+    0%   { opacity: 0.9; transform: translateY(0) scale(1); }
+    100% { opacity: 0;   transform: translateY(30px) scale(0.4); }
+  }
+
+  /* Basket glow breathe */
+  @keyframes basketGlowPulse {
+    0%,100% { opacity: 0.7; transform: scale(1);    }
+    50%     { opacity: 1;   transform: scale(1.12); }
+  }
+
+  /* Basket jingles when a star lands */
+  @keyframes basketJingle {
+    0%   { transform: translateX(0)    rotate(0deg)   scale(1); }
+    20%  { transform: translateX(-5px) rotate(-6deg)  scale(1.08); }
+    40%  { transform: translateX( 5px) rotate( 6deg)  scale(1.08); }
+    60%  { transform: translateX(-3px) rotate(-3deg)  scale(1.04); }
+    80%  { transform: translateX( 2px) rotate( 2deg)  scale(1.02); }
+    100% { transform: translateX(0)    rotate(0deg)   scale(1); }
+  }
+
+  /* Spark fly-out */
+  @keyframes sparkFly {
+    0%   { opacity: 1; transform: translate(0,0)                         scale(1); }
+    70%  { opacity: 1; }
+    100% { opacity: 0; transform: translate(var(--tx,0), var(--ty,0)) scale(0.15); }
+  }
+
+  /* Level banner */
+  @keyframes bannerPop {
+    0%   { transform: translate(-50%,-50%) scale(0.3); opacity: 0; }
+    22%  { transform: translate(-50%,-50%) scale(1.18); opacity: 1; }
+    40%  { transform: translate(-50%,-50%) scale(0.96); }
+    56%  { transform: translate(-50%,-50%) scale(1.0);  opacity: 1; }
+    78%  { transform: translate(-50%,-50%) scale(1.0);  opacity: 1; }
+    100% { transform: translate(-50%,-50%) scale(0.75); opacity: 0; }
+  }
+
+  /* Overlay card entrance */
+  @keyframes cardIn {
+    from { transform: scale(0.72) translateY(28px); opacity: 0; }
+    to   { transform: scale(1)    translateY(0);    opacity: 1; }
+  }
+
+  /* Play again pulse */
+  @keyframes playBtnPulse {
+    0%,100% { box-shadow: 0 6px 28px rgba(255,160,0,0.55), 0 0 0  0   rgba(255,214,0,0); }
+    50%     { box-shadow: 0 6px 28px rgba(255,160,0,0.55), 0 0 0 14px rgba(255,214,0,0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ── UTILITIES ───────────────────────────────────────────── */
+@layer utilities {
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+}

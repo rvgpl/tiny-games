@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Star Catcher! — Tiny Games for Tiny Humans</title>
+  <meta name="description" content="Touch the falling stars before they disappear! Collect them in your basket. A fun game for toddlers." />
+  <meta name="author"      content="Tiny Games for Tiny Humans" />
+  <meta name="robots"      content="index, follow" />
+  <meta name="theme-color" content="#0d0628" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://tiny-games.ravigopal.com/games/star-catcher/" />
+  <meta property="og:title"       content="Star Catcher! — Tiny Games for Tiny Humans" />
+  <meta property="og:description" content="Touch the falling stars and collect them in your basket!" />
+  <meta property="og:image"       content="https://tinygamesfortinyhumans.com/og-image.png" />
+  <meta property="og:site_name"   content="Tiny Games for Tiny Humans" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Star Catcher! — Tiny Games for Tiny Humans" />
+  <meta name="twitter:description" content="Touch the falling stars and collect them in your basket!" />
+  <meta name="twitter:image"       content="https://tinygames.ravigopal.com/games/star-catcher/og-image.png" />
+  <link rel="canonical" href="https://tiny-games.ravigopal.com/games/star-catcher/" />
+  <link rel="stylesheet" href="star-catcher.css" />
+</head>
+<body>
+
+  <a href="#sky" class="skip-link">Skip to game</a>
+  <div id="sr-announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ══ HUD ══ -->
+  <header class="hud" role="banner" aria-label="Star Catcher">
+
+    <a href="index.html" class="hud-btn back-btn" aria-label="Back to all games">
+      <span aria-hidden="true">←</span>
+    </a>
+
+    <!-- Level pill -->
+    <div class="hud-pill level-pill" aria-label="Level">
+      <span aria-hidden="true">🌙</span>
+      <span id="levelNum" class="level-num">1</span>
+    </div>
+
+    <!-- Basket — centred, the star collection target -->
+    <div class="basket-wrap" id="basketWrap" aria-label="Star basket" aria-live="polite">
+      <div class="basket" id="basket" aria-hidden="true">
+        <!-- SVG basket drawn in CSS via background -->
+        <div class="basket-glow" aria-hidden="true"></div>
+        <div class="basket-body" aria-hidden="true">
+          <span class="basket-count" id="basketCount">0</span>
+        </div>
+        <div class="basket-rim"  aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- Hearts — right side -->
+    <div class="hearts-wrap" id="heartsWrap" aria-label="Lives remaining" aria-live="polite"></div>
+
+  </header>
+
+  <!-- ══ SKY ══ -->
+  <main id="sky" class="sky" aria-label="Night sky — tap the falling stars!">
+    <div class="bg-stars" id="bgStars" aria-hidden="true"></div>
+    <div id="starLayer" class="star-layer"></div>
+    <div id="levelBanner" class="level-banner" aria-hidden="true">
+      <span id="levelBannerText"></span>
+    </div>
+  </main>
+
+  <!-- ══ FLYING STAR (cloned into body for arc animation) ══ -->
+  <!-- JS creates these dynamically -->
+
+  <!-- ══ GAME OVER ══ -->
+  <div id="gameOverOverlay" class="overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Game over">
+    <div class="overlay-card">
+      <div class="overlay-emoji" id="gameOverEmoji">🌙</div>
+      <div class="overlay-tally" id="gameOverTally" aria-label="Stars collected"></div>
+      <button class="play-again-btn" id="playAgainBtn" aria-label="Play again">
+        <span aria-hidden="true">▶</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══ PARTICLE / ARC LAYER (above everything) ══ -->
+  <div id="arcLayer" class="arc-layer" aria-hidden="true"></div>
+
+  <script src="star-catcher.js"></script>
+</body>
+</html>
