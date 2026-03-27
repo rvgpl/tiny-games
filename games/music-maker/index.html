@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Music Maker! — Tiny Games for Tiny Humans</title>
+  <meta name="description" content="Tap the big colourful buttons to make funny sounds and build your own little song!" />
+  <meta name="author"      content="Tiny Games for Tiny Humans" />
+  <meta name="robots"      content="index, follow" />
+  <meta name="theme-color" content="#FF4081" />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://tinygames.ravigoal.com/games/music-maker/" />
+  <meta property="og:title"       content="Music Maker! — Tiny Games for Tiny Humans" />
+  <meta property="og:description" content="Tap the big colourful buttons to make funny sounds!" />
+  <meta property="og:image"       content="https://tinygames.ravigoal.com/games/music-maker/og-image.png" />
+  <meta property="og:site_name"   content="Tiny Games for Tiny Humans" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Music Maker! — Tiny Games for Tiny Humans" />
+  <meta name="twitter:description" content="Tap the big colourful buttons to make funny sounds!" />
+  <meta name="twitter:image"       content="https://tinygames.ravigoal.com/games/music-maker/og-image.png" />
+  <link rel="canonical" href="https://tinygames.ravigoal.com/games/music-maker/" />
+  <link rel="stylesheet" href="music-maker.css" />
+</head>
+<body>
+
+  <a href="#instrument-grid" class="skip-link">Skip to instruments</a>
+  <div id="sr-announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ══ HUD ══ -->
+  <header class="hud" role="banner" aria-label="Music Maker">
+
+    <a href="/" class="hud-btn back-btn" aria-label="Back to all games">
+      <span aria-hidden="true">←</span>
+    </a>
+
+    <!-- Playback / recording status indicator -->
+    <div class="status-wrap" aria-hidden="true">
+      <div class="status-dot" id="statusDot"></div>
+      <span class="status-label" id="statusLabel">🎵</span>
+    </div>
+
+    <!-- Tap counter -->
+    <div class="tap-chip" aria-label="Notes played">
+      <span aria-hidden="true">🎶</span>
+      <span id="tapCount" class="tap-num">0</span>
+    </div>
+
+    <!-- Play back button -->
+    <button class="hud-btn play-btn" id="playBtn" aria-label="Play back my song">
+      <span aria-hidden="true">▶</span>
+    </button>
+
+    <!-- Clear / new song -->
+    <button class="hud-btn clear-btn" id="clearBtn" aria-label="Start a new song">
+      <span aria-hidden="true">🗑️</span>
+    </button>
+
+  </header>
+
+  <!-- ══ INSTRUMENT GRID ══ -->
+  <main id="instrument-grid" class="instrument-grid" aria-label="Instrument buttons — tap to play">
+    <!-- 8 buttons injected by JS so we can attach rich state -->
+  </main>
+
+  <!-- ══ PLAYBACK PROGRESS BAR ══ -->
+  <div class="playback-bar" id="playbackBar" aria-hidden="true">
+    <div class="playback-fill" id="playbackFill"></div>
+  </div>
+
+  <!-- ══ CELEBRATION ══ -->
+  <div id="celebOverlay" class="celeb-overlay" aria-hidden="true">
+    <div class="celeb-inner" id="celebInner"></div>
+  </div>
+
+  <!-- ══ CONFETTI ══ -->
+  <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
+
+  <!-- ══ PARTICLE LAYER ══ -->
+  <div id="particleLayer" class="particle-layer" aria-hidden="true"></div>
+
+  <script src="music-maker.js"></script>
+</body>
+</html>
